@@ -7,11 +7,15 @@ import { fetchEvents } from '../../utils/http.js';
 export default function NewEventsSection() {
   const { data, isPending, isError, error } = useQuery({
     queryKey: ['events'],
+    // React Query will automatically pass an object with the query key by default.
     queryFn: fetchEvents,
     // The staleTime option tells React Query to consider the data fresh
     // for the specified amount of time. If the data is stale, React Query
     // will automatically refetch it in the background.
     staleTime: 5000,
+    //The gcTime option tells React Query to remove the data from the cache
+    // after the specified amount of time.
+    // gcTime: 60000,
   });
   let content;
 
