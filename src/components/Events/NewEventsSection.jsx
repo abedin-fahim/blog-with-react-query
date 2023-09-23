@@ -6,9 +6,10 @@ import { fetchEvents } from '../../utils/http.js';
 
 export default function NewEventsSection() {
   const { data, isPending, isError, error } = useQuery({
-    queryKey: ['events'],
+    queryKey: ['events', { max: 3 }],
     // React Query will automatically pass an object with the query key by default.
-    queryFn: fetchEvents,
+    // queryFn: ({ signal }) => fetchEvents({ signal, max: 3 }),
+    queryFn: ({ signal, queryKey }) => fetchEvents({ signal, ...queryKey[1] }),
     // The staleTime option tells React Query to consider the data fresh
     // for the specified amount of time. If the data is stale, React Query
     // will automatically refetch it in the background.
